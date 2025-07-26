@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server"
 import { cookies } from "next/headers"
+import { updateReservationStatus } from "@/lib/utils"
 
 export async function PATCH(
   request: Request,
   { params }: { params: { id: string } }
 ) {
   try {
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const adminToken = cookieStore.get("adminToken")?.value
 
     if (!adminToken) {
@@ -26,33 +27,20 @@ export async function PATCH(
       )
     }
 
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
-    if (!API_BASE_URL) {
-      throw new Error("API URL not configured")
-    }
+    // Update reservation status in local data
+    const success = updateReservationStatus(params.id, status)
 
-    const response = await fetch(
-      `${API_BASE_URL}/reservations/${params.id}/status`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": adminToken,
-        },
-        body: JSON.stringify({ status }),
-      }
-    )
-
-    if (!response.ok) {
-      const errorData = await response.json()
+    if (!success) {
       return NextResponse.json(
-        { success: false, message: errorData.message || "Failed to update status" },
-        { status: response.status }
+        { success: false, message: "Reservation not found" },
+        { status: 404 }
       )
     }
 
-    const data = await response.json()
-    return NextResponse.json(data)
+    return NextResponse.json({
+      success: true,
+      message: "Reservation status updated successfully"
+    })
   } catch (error) {
     console.error("Error updating reservation status:", error)
     return NextResponse.json(

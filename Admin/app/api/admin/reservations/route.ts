@@ -1,11 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-
-if (!API_BASE_URL) {
-  throw new Error("NEXT_PUBLIC_API_URL environment variable is not set");
-}
+import { searchReservations } from "@/lib/utils";
 
 export async function GET(request: Request) {
   try {
@@ -27,73 +22,28 @@ export async function GET(request: Request) {
 
     // Get URL parameters
     const { searchParams } = new URL(request.url);
-    const page = searchParams.get("page") || "1";
-    const limit = searchParams.get("limit") || "10";
+    const page = parseInt(searchParams.get("page") || "1");
+    const limit = parseInt(searchParams.get("limit") || "10");
     const search = searchParams.get("search") || "";
     const status = searchParams.get("status") || "";
     const startDate = searchParams.get("startDate") || "";
     const endDate = searchParams.get("endDate") || "";
 
-    // Build API URL with parameters
-    const apiUrl = new URL(`${API_BASE_URL}/reservations`);
-    apiUrl.searchParams.append("page", page);
-    apiUrl.searchParams.append("limit", limit);
+    // Get filtered reservations from local data
+    const filteredReservations = searchReservations(search, status, startDate, endDate);
     
-    // Add search parameter if present
-    if (search) {
-      apiUrl.searchParams.append("search", search);
-    }
-    
-    // Add status parameter if present and not "all"
-    if (status && status !== "all") {
-      apiUrl.searchParams.append("status", status);
-    }
-    
-    // Add date range parameters if present
-    if (startDate) {
-      apiUrl.searchParams.append("startDate", startDate);
-    }
-    if (endDate) {
-      apiUrl.searchParams.append("endDate", endDate);
-    }
+    // Calculate pagination
+    const total = filteredReservations.length;
+    const totalPages = Math.ceil(total / limit);
+    const startIndex = (page - 1) * limit;
+    const endIndex = startIndex + limit;
+    const paginatedReservations = filteredReservations.slice(startIndex, endIndex);
 
-    console.log("Making request to:", apiUrl.toString());
-
-    const response = await fetch(apiUrl.toString(), {
-      method: 'GET',
-      headers: {
-        'x-auth-token': adminToken.value,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      cache: 'no-store',
-      next: { revalidate: 0 },
-    });
-
-    // Log response status for debugging
-    console.log("API Response status:", response.status);
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("API Error Response:", {
-        status: response.status,
-        statusText: response.statusText,
-        body: errorText
-      });
-      
-      return NextResponse.json(
-        { 
-          success: false, 
-          message: `Backend API error: ${response.status} ${response.statusText}`,
-          details: errorText
-        },
-        { status: response.status }
-      );
-    }
-
-    const data = await response.json();
     console.log("Successfully fetched reservations:", {
-      count: data.data?.reservations?.length || 0,
+      count: paginatedReservations.length,
+      total,
+      page,
+      totalPages,
       filters: {
         search,
         status,
@@ -102,36 +52,24 @@ export async function GET(request: Request) {
       }
     });
     
-    return NextResponse.json(data);
+    return NextResponse.json({
+      success: true,
+      data: {
+        reservations: paginatedReservations,
+        pagination: {
+          total,
+          page,
+          pages: totalPages,
+          limit
+        }
+      }
+    });
   } catch (error: unknown) {
-    console.error("Detailed error in reservations API:", {
+    console.error("Error in reservations API:", {
       name: error instanceof Error ? error.name : 'Unknown',
       message: error instanceof Error ? error.message : 'Unknown error occurred',
       stack: error instanceof Error ? error.stack : undefined
     });
-
-    // More specific error handling
-    if (error instanceof Error && error.message.includes("fetch failed")) {
-      return NextResponse.json(
-        { 
-          success: false, 
-          message: "Connection to the server failed. Please check your internet connection and try again.",
-          error: error.message
-        },
-        { status: 503 }
-      );
-    }
-
-    if (error instanceof Error && (error.message.includes("certificate") || error.message.includes("SSL"))) {
-      return NextResponse.json(
-        { 
-          success: false, 
-          message: "Security error while connecting to the server. Please try again later.",
-          error: error.message
-        },
-        { status: 503 }
-      );
-    }
 
     return NextResponse.json(
       { 

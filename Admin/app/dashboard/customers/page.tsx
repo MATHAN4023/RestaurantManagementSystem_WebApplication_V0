@@ -107,32 +107,20 @@ export default function CustomersPage() {
   // Handle customer edit
   const handleEditCustomer = async (customerId: string, data: Partial<Customer>) => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api'
-      const response = await fetch(`${apiUrl}/customers/${customerId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': localStorage.getItem('adminToken') || '',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
-
-      if (response.status === 401) {
-        throw new Error("Unauthorized. Please login again.")
-      }
-
-      const result = await response.json()
-
-      if (!response.ok) {
-        throw new Error(result.message || 'Failed to update customer')
-      }
-
-      // Update local state
+      // Update local state directly
       setCustomers(prev => 
         prev.map(customer => 
           customer._id === customerId 
-            ? { ...customer, ...data }
+            ? { ...customer, ...data, updatedAt: new Date().toISOString() }
+            : customer
+        )
+      )
+
+      // Update filtered customers as well
+      setFilteredCustomers(prev => 
+        prev.map(customer => 
+          customer._id === customerId 
+            ? { ...customer, ...data, updatedAt: new Date().toISOString() }
             : customer
         )
       )
