@@ -454,4 +454,4 @@ For support and questions:
 **LiveSite URLS :** 
 
 Admin Panel : https://oasisadminmanagement.vercel.app/
-client Site :   
+client Site : https://restaurantmanagement-jet.vercel.app/
