@@ -15,11 +15,11 @@ export const getAdmins = (): Admin[] => {
 };
 
 export const getAdminById = (id: string): Admin | undefined => {
-  return adminData.find((admin: Admin) => admin._id === id);
+  return (adminData.find((admin) => admin._id === id) as Admin | undefined);
 };
 
 export const getAdminByEmail = (email: string): Admin | undefined => {
-  return adminData.find((admin: Admin) => admin.email === email);
+  return (adminData.find((admin) => admin.email === email) as Admin | undefined);
 };
 
 export const validateAdminCredentials = (email: string, password: string): Admin | null => {
