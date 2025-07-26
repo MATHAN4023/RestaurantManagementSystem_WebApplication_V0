@@ -453,5 +453,5 @@ For support and questions:
 
 **LiveSite URLS :** 
 
-Admin Panel : https://restaurant-management-system-web-ap.vercel.app/
+Admin Panel : https://oasisadminmanagement.vercel.app/
 client Site :   
