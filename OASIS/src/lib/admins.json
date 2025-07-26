@@ -1,0 +1,29 @@
+[
+  {
+    "_id": "admin1",
+    "name": "Admin User",
+    "email": "admin@oasis.com",
+    "password": "admin123",
+    "role": "admin",
+    "createdAt": "2024-01-01T10:00:00Z",
+    "updatedAt": "2024-01-01T10:00:00Z"
+  },
+  {
+    "_id": "admin2",
+    "name": "Manager Admin",
+    "email": "manager@oasis.com",
+    "password": "manager456",
+    "role": "admin",
+    "createdAt": "2024-01-15T14:30:00Z",
+    "updatedAt": "2024-01-15T14:30:00Z"
+  },
+  {
+    "_id": "admin3",
+    "name": "Super Admin",
+    "email": "superadmin@oasis.com",
+    "password": "super789",
+    "role": "super_admin",
+    "createdAt": "2024-02-01T09:00:00Z",
+    "updatedAt": "2024-02-01T09:00:00Z"
+  }
+] 

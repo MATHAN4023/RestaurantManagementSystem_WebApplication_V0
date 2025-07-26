@@ -1,0 +1,359 @@
+.footer {
+  background: #fdf6ee;
+  color: #222;
+  padding: 2.5rem 0 1.2rem 0;
+  font-family: 'Times New Roman', Times, serif;
+  border-top: 1px solid #f2e9db;
+  margin-top: 2rem;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto 1.2rem auto;
+  padding: 0 2vw;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+}
+
+.footer-brand-block {
+  flex: 1 1 220px;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.footer-desc {
+  font-size: 1rem;
+  color: #444;
+  font-family: 'Times New Roman', Times, serif;
+  margin-bottom: 0.5rem;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 1.1rem;
+  margin-top: 0.2rem;
+}
+
+.footer-social {
+  font-size: 1.5rem;
+  color: #2EFFFF;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+.footer-social:hover {
+  transform: scale(1.18) rotate(-8deg);
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  min-width: 120px;
+}
+
+.footer-link {
+  color: #222;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-family: inherit;
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
+  color: #2EFFFF;
+}
+
+.footer-newsletter {
+  flex: 1 1 260px;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.footer-newsletter-label {
+  font-size: 1rem;
+  color: #222;
+  margin-bottom: 0.2rem;
+}
+
+.footer-newsletter-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.footer-newsletter-input {
+  flex: 1;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.footer-newsletter-btn {
+  background: #2EFFFF;
+  color: #111;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1.1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.footer-newsletter-btn:hover {
+  background: #222;
+  color: #fff;
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 1rem;
+  color: #888;
+  font-family: inherit;
+}
+
+.footer-info {
+  flex: 1 1 220px;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.footer-info-block {
+  margin-bottom: 0.5rem;
+}
+
+.footer-info-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #2EFFFF;
+  margin-bottom: 0.1rem;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.footer-info-detail {
+  font-size: 1rem;
+  color: #444;
+  font-family: inherit;
+}
+
+@media (max-width: 900px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 2.2rem;
+    align-items: flex-start;
+  }
+  .footer-brand {
+    font-size: 1.4rem;
+  }
+  .footer-nav {
+    flex-direction: row;
+    gap: 1.2rem;
+    margin-top: 0.5rem;
+  }
+  .footer-newsletter {
+    width: 100%;
+  }
+  .footer-info {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+
+.footer-dark {
+  background: #000;
+  color: #fff;
+  font-family: 'Times New Roman', Times, serif;
+  padding: 0;
+  border: none;
+  margin-top: 0;
+}
+
+.footer-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3.5rem 2vw 2.5rem 2vw;
+  gap: 2rem;
+}
+
+.footer-left {
+  flex: 1 1 350px;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.footer-logo-block {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.footer-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.footer-brand-dark {
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: #fff;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.footer-contact-info {
+  font-size: 1.1rem;
+  color: #fff;
+  line-height: 1.7;
+  margin-top: 2.5rem;
+}
+
+.footer-right {
+  flex: 1 1 400px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.footer-connect-title {
+  font-size: 2rem;
+  font-family: 'Times New Roman', Times, serif;
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.footer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-form-label {
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 0.3rem;
+}
+
+.footer-form-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #fff;
+  color: #fff;
+  font-size: 1.1rem;
+  padding: 0.5rem 0;
+  margin-bottom: 1.2rem;
+  outline: none;
+}
+
+.footer-form-input::placeholder {
+  color: #fff;
+  opacity: 0.7;
+}
+
+.footer-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 1.2rem;
+}
+
+.footer-checkbox {
+  accent-color: #fff;
+  width: 18px;
+  height: 18px;
+}
+
+.footer-checkbox-label {
+  color: #fff;
+  font-size: 1rem;
+}
+
+.footer-form-btn {
+  background: #fdf6ee;
+  color: #111;
+  border: none;
+  border-radius: 0;
+  padding: 0.7rem 0;
+  font-size: 1.1rem;
+  font-family: inherit;
+  font-weight: 400;
+  width: 100%;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.footer-form-btn:hover {
+  background: #2EFFFF;
+  color: #000;
+}
+
+.footer-policy-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 2.5rem;
+}
+
+.footer-policy-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+.footer-policy-link:hover {
+  color: #2EFFFF;
+}
+
+.footer-bottom-dark {
+  text-align: right;
+  font-size: 1rem;
+  color: #fff;
+  background: #000;
+  padding: 1.5rem 2vw 1rem 2vw;
+  font-family: inherit;
+}
+
+.footer-wix {
+  color: #2EFFFF;
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .footer-main {
+    flex-direction: column;
+    gap: 2.5rem;
+    padding: 2.5rem 4vw 1.5rem 4vw;
+  }
+  .footer-bottom-dark {
+    text-align: center;
+    font-size: 0.98rem;
+  }
+  .footer-left, .footer-right {
+    min-width: 0;
+  }
+  .footer-logo {
+    width: 48px;
+    height: 48px;
+  }
+  .footer-brand-dark {
+    font-size: 1.5rem;
+  }
+  .footer-connect-title {
+    font-size: 1.3rem;
+  }
+} 

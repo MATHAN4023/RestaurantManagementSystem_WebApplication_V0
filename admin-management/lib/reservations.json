@@ -1,0 +1,30 @@
+[
+  {
+    "_id": "r1",
+    "userId": {
+      "_id": "1",
+      "name": "John Doe",
+      "phone": "1234567890"
+    },
+    "datetime": "2024-06-01T19:00:00Z",
+    "partySize": 4,
+    "status": "confirmed",
+    "bookingCode": "ABC123",
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-05-01T10:00:00Z"
+  },
+  {
+    "_id": "r2",
+    "userId": {
+      "_id": "2",
+      "name": "Jane Smith",
+      "phone": "0987654321"
+    },
+    "datetime": "2024-06-02T20:00:00Z",
+    "partySize": 2,
+    "status": "arrived",
+    "bookingCode": "XYZ789",
+    "createdAt": "2024-05-02T11:00:00Z",
+    "updatedAt": "2024-05-02T11:00:00Z"
+  }
+] 

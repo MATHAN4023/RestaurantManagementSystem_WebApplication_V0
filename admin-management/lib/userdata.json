@@ -1,0 +1,31 @@
+[
+   
+  {
+    
+    "_id": "admin1",
+    "name": "Admin User",
+    "email": "admin@restaurant.com",
+    "password": "admin123",
+    "role": "admin",
+    "createdAt": "2023-01-01T10:00:00Z",
+    "updatedAt": "2023-01-01T10:00:00Z"
+  },
+  {
+    "_id": "1",
+    "name": "John Doe",
+    "phone": "1234567890",
+    "gender": "male",
+    "dateOfBirth": "1990-01-01",
+    "createdAt": "2023-01-01T10:00:00Z",
+    "updatedAt": "2023-01-01T10:00:00Z"
+  },
+  {
+    "_id": "2",
+    "name": "Jane Smith",
+    "phone": "0987654321",
+    "gender": "female",
+    "dateOfBirth": "1992-05-10",
+    "createdAt": "2023-02-01T11:00:00Z",
+    "updatedAt": "2023-02-01T11:00:00Z"
+  }
+] 

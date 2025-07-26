@@ -1,0 +1,722 @@
+{
+	"info": {
+		"_postman_id": "e00a1ce3-105b-4d40-ab25-343e2c4d62df",
+		"name": "Restaurant Table Booking API",
+		"description": "API collection for testing restaurant table booking functionality",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26986402",
+		"_collection_link": "https://teamrcxbp.postman.co/workspace/Team-Workspace~e3a9f5a5-a688-4ff6-808b-28f7f6998935/collection/41610059-e00a1ce3-105b-4d40-ab25-343e2c4d62df?action=share&source=collection_link&creator=26986402"
+	},
+	"item": [
+		{
+			"name": "Admin APIs",
+			"item": [
+				{
+					"name": "Authentication",
+					"item": [
+						{
+							"name": "Admin: Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"if (jsonData && jsonData.token) {",
+											"    pm.environment.set('adminToken', jsonData.token);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"admin@restaurant.com\",\n  \"password\": \"admin123\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/admin/auth/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"auth",
+										"login"
+									]
+								},
+								"description": "Login as admin user"
+							},
+							"response": []
+						},
+						{
+							"name": "Admin: Setup (Initial Admin Creation)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Restaurant Admin\",\n  \"email\": \"admin@restaurant.com\",\n  \"password\": \"admin123\",\n  \"phone\": \"1234567890\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/admin/auth/setup",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin",
+										"auth",
+										"setup"
+									]
+								},
+								"description": "Create the initial admin account (use only once)"
+							},
+							"response": []
+						}
+					],
+					"description": "Admin authentication endpoints"
+				},
+				{
+					"name": "Reservations",
+					"item": [
+						{
+							"name": "Get All Reservations",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-auth-token",
+										"value": "{{adminToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/reservations",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"reservations"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "confirmed",
+											"description": "Filter by reservation status",
+											"disabled": true
+										},
+										{
+											"key": "date",
+											"value": "2023-10-31",
+											"description": "Filter by date (YYYY-MM-DD)",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"description": "Page number",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "10",
+											"description": "Results per page",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Get all reservations (admin only)"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Reservation Details",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-auth-token",
+										"value": "{{adminToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/reservations/{{reservationId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"reservations",
+										"{{reservationId}}"
+									]
+								},
+								"description": "Get details of a specific reservation"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Reservation Status",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "x-auth-token",
+										"value": "{{adminToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"status\": \"arrived\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/reservations/{{reservationId}}/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"reservations",
+										"{{reservationId}}",
+										"status"
+									]
+								},
+								"description": "Update the status of a reservation"
+							},
+							"response": []
+						}
+					],
+					"description": "Admin endpoints for managing reservations"
+				},
+				{
+					"name": "Customers",
+					"item": [
+						{
+							"name": "Get All Customers",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-auth-token",
+										"value": "{{adminToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/customers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"customers"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1",
+											"description": "Page number",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "10",
+											"description": "Results per page",
+											"disabled": true
+										},
+										{
+											"key": "search",
+											"value": "john",
+											"description": "Search by name or phone",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Get all customers (admin only)"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Customer Details",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"if (jsonData && jsonData.data && jsonData.data.customer && jsonData.data.customer._id) {",
+											"    pm.environment.set('customerId', jsonData.data.customer._id);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-auth-token",
+										"value": "{{adminToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/customers/{{customerId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"customers",
+										"{{customerId}}"
+									]
+								},
+								"description": "Get details of a specific customer"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Customer",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "x-auth-token",
+										"value": "{{adminToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"John Doe\",\n  \"gender\": \"male\",\n  \"dateOfBirth\": \"1990-01-01\",\n  \"tags\": [\"vip\", \"regular\"]\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/customers/{{customerId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"customers",
+										"{{customerId}}"
+									]
+								},
+								"description": "Update customer information (admin only)"
+							},
+							"response": []
+						}
+					],
+					"description": "Admin endpoints for customer management"
+				}
+			],
+			"description": "Endpoints for admin operations"
+		},
+		{
+			"name": "User APIs",
+			"item": [
+				{
+					"name": "Authentication",
+					"item": [
+						{
+							"name": "Initiate OTP Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"if (jsonData && jsonData.data && jsonData.data.request_id) {",
+											"    pm.environment.set('requestId', jsonData.data.request_id);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"phone\": \"9876543210\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/auth/initiate-login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"auth",
+										"initiate-login"
+									]
+								},
+								"description": "Initiate the OTP login process for a user"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify OTP",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"if (jsonData && jsonData.data && jsonData.data.token) {",
+											"    pm.environment.set('userToken', jsonData.data.token);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"phone\": \"9876543210\",\n  \"otp\": \"123456\",\n  \"request_id\": \"{{requestId}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/auth/verify-otp",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"auth",
+										"verify-otp"
+									]
+								},
+								"description": "Verify the OTP sent to user's phone"
+							},
+							"response": []
+						},
+						{
+							"name": "Resend OTP",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"phone\": \"9876543210\",\n  \"request_id\": \"{{requestId}}\",\n  \"retry_type\": \"text\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/auth/resend-otp",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"auth",
+										"resend-otp"
+									]
+								},
+								"description": "Resend OTP to user's phone"
+							},
+							"response": []
+						}
+					],
+					"description": "User authentication endpoints"
+				},
+				{
+					"name": "Reservations",
+					"item": [
+						{
+							"name": "Create Reservation",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"if (jsonData && jsonData.data && jsonData.data.reservation && jsonData.data.reservation.id) {",
+											"    pm.environment.set('reservationId', jsonData.data.reservation.id);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "x-auth-token",
+										"value": "{{userToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"datetime\": \"{{$isoTimestamp}}\",\n  \"partySize\": 4\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/reservations",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"reservations"
+									]
+								},
+								"description": "Create a new table reservation"
+							},
+							"response": []
+						},
+						{
+							"name": "Get User Reservations",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-auth-token",
+										"value": "{{userToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/reservations",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"reservations"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "all",
+											"description": "Filter by reservation status (all, confirmed, cancelled, completed)",
+											"disabled": true
+										},
+										{
+											"key": "startDate",
+											"value": "2023-01-01",
+											"description": "Start date for filtering (YYYY-MM-DD)",
+											"disabled": true
+										},
+										{
+											"key": "endDate",
+											"value": "2023-12-31",
+											"description": "End date for filtering (YYYY-MM-DD)",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"description": "Page number",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "10",
+											"description": "Results per page",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Get user's reservation history with optional filters"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Reservation Details",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-auth-token",
+										"value": "{{userToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/reservations/{{reservationId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"reservations",
+										"{{reservationId}}"
+									]
+								},
+								"description": "Get details of a specific user reservation"
+							},
+							"response": []
+						},
+						{
+							"name": "Cancel Reservation",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "x-auth-token",
+										"value": "{{userToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/reservations/{{reservationId}}/cancel",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"reservations",
+										"{{reservationId}}",
+										"cancel"
+									]
+								},
+								"description": "Cancel an existing reservation"
+							},
+							"response": []
+						}
+					],
+					"description": "User endpoints for managing reservations"
+				},
+				{
+					"name": "Profile",
+					"item": [
+						{
+							"name": "Get Profile",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"if (jsonData && jsonData.data && jsonData.data.user && jsonData.data.user.id) {",
+											"    pm.environment.set('customerId', jsonData.data.user.id);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-auth-token",
+										"value": "{{userToken}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/profile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"profile"
+									]
+								},
+								"description": "Retrieve the authenticated user's profile information"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Profile",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "x-auth-token",
+										"value": "{{userToken}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"John Doe\",\n  \"gender\": \"male\",\n  \"dateOfBirth\": \"1990-01-01\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/profile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"profile"
+									]
+								},
+								"description": "Update the user's profile information"
+							},
+							"response": []
+						}
+					],
+					"description": "User profile management endpoints"
+				}
+			],
+			"description": "Endpoints for customer-facing operations"
+		},
+		{
+			"name": "Server Health",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Check if the server is running properly"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000/api",
+			"type": "string"
+		}
+	]
+}

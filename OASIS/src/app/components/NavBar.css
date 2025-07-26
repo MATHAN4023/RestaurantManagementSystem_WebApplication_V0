@@ -1,0 +1,151 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #000;
+  /* background: #000; */
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  height: 78px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1000;
+  transition: box-shadow 0.2s, background 0.2s, transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+.navbar--scrolled {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  background: #000;
+}
+
+.navbar--hidden {
+  transform: translateY(-100%);
+}
+
+.navbar--visible {
+  transform: translateY(0);
+}
+
+body {
+  padding-top: 64px;
+}
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__icon {
+  width: 125px;
+  height: 50px;
+  margin-right: 8px;
+}
+
+.navbar__brand {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navbar__link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.navbar__link:hover {
+  color: #2EFFFF    ;
+}
+
+.navbar__book {
+  background: #2EFFFF;
+  /* background: #ffe4b5; */
+  color: #000000;
+  border: none;
+  border-radius: 3px;
+  padding: 0.3rem 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 1rem;
+  transition: background 0.2s;
+}
+
+.navbar__book:hover {
+  background: #fff;
+}
+
+.navbar__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  height: 32px;
+  width: 32px;
+  margin-left: 1rem;
+}
+
+.navbar__hamburger {
+  width: 22px;
+  height: 2px;
+  background: #ffe4b5;
+  margin: 3px 0;
+  border-radius: 1px;
+  transition: 0.3s;
+}
+
+.navbar__link.profile-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #2EFFFF;
+  color: #222;
+  transition: all 0.3s ease;
+}
+
+.navbar__link.profile-icon:hover {
+  background-color: #222;
+  color: #2EFFFF;
+  transform: scale(1.05);
+}
+
+@media (max-width: 700px) {
+  .navbar__links {
+    position: absolute;
+    top: 48px;
+    right: 0;
+    background: #000;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100vw;
+    padding: 1rem 2rem 1rem 1rem;
+    gap: 1rem;
+    display: none;
+    z-index: 10;
+  }
+  .navbar__links.open {
+    display: flex;
+  }
+  .navbar__toggle {
+    display: flex;
+  }
+  .navbar__icon {
+    width: 100px;
+    height: 50px;
+    margin-right: 2px;
+  }
+} 
